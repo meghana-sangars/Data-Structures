@@ -1,0 +1,94 @@
+#include<iostream>
+using namespace std;
+
+class Stack
+{
+int top,n;
+int *a;
+public:
+Stack(int size)
+{
+n = size;
+top = -1;
+a = new int[n];
+}
+
+void push(int x)
+{
+if(top == (n-1))   
+cout<<"Stack is full!"<<endl;
+else
+{
+a[++top] = x;   
+}
+}
+
+int pop()
+{
+if(top == -1)
+return 9999;
+else
+return a[top--];
+}
+
+int peep()
+{
+if(top == -1)
+return 9999;
+else
+return a[top];
+}
+
+void show_stack()
+{
+if(top == -1)
+cout<<"Empty stack!"<<endl;
+else
+{
+for(int i=top;i>=0;i--)
+    cout<<a[i]<<endl;
+}
+}
+};
+
+int main()
+{
+
+int n,choice,x;
+cout<<"Enter maximum size of the stack:\t";
+cin>>n;
+Stack s(n);
+do
+{
+cout<<"----------Stack Operations----------"<<endl;
+cout<<"1.Push"<<endl;
+cout<<"2.Pop"<<endl;
+cout<<"3.Peep"<<endl;
+cout<<"4.Display stack"<<endl;
+cout<<"Enter choice:\t"; 
+cin>>choice;
+switch(choice)
+{
+case 1:cout<<"Enter element:\t";
+       cin>>x;
+       s.push(x);
+       break;
+case 2:x = s.pop();
+       if(x == 9999)
+       cout<<"Empty stack!"<<endl;
+       else
+       cout<<"Popped element:\t"<<x<<endl;
+       break;
+case 3: x = s.peep();
+        if(x == 9999)
+        cout<<"Empty stack!:\t"<<endl;
+       cout<<"Top element:\t"<<x<<endl;
+       break;
+case 4:cout<<"Stack status:\n";
+       s.show_stack();
+       break;
+default : cout<<"Enter valid choice!\n";
+}
+}while((choice >= 1)&&(choice <= 4));
+return 0;
+}
