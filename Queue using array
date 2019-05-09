@@ -1,0 +1,103 @@
+#include <iostream>
+using namespace std;
+
+class Queue 
+{
+int front,rear,n;
+int *a;
+public:
+Queue(int size)
+{
+n = size;
+a = new int[n];
+front = rear = -1;
+}
+
+void enqueue(int x)
+{
+if(rear == (n-1))
+{
+  cout<<"Queue full!\n";  
+}
+else
+a[++rear] = x;
+if(front == -1)
+front=0;
+}
+
+int dequeue()
+{
+if(front>rear)
+   { 
+    front = rear = -1;
+    return 9999;
+   }
+
+else
+return(a[front++]);
+}
+
+void show_status()
+{
+if(front == rear == -1)
+cout<<"Empty queue!"<<endl;
+else
+{
+cout<<"Front:\t"<<a[front]<<endl;
+cout<<"Rear :\t"<<a[rear]<<endl;
+}
+}
+
+void show_queue()
+{
+    if(front == rear == -1)
+cout<<"Empty queue!"<<endl;
+else
+{
+for(int i=front;i<=rear;i++)
+{
+cout<<a[i]<<" ";    
+}
+cout<<endl;
+}
+}
+};
+
+int main()
+{
+
+int n,choice,x;
+cout<<"Enter maximum size of the queue:\t";
+cin>>n;
+Queue q(n);
+do
+{
+cout<<"----------Queue Operations----------"<<endl;
+cout<<"1.Enqueue"<<endl;
+cout<<"2.Dequeue"<<endl;
+cout<<"3.Show queue status"<<endl;
+cout<<"4.Display queue"<<endl;
+cout<<"Enter choice:\t"; 
+cin>>choice;
+switch(choice)
+{
+case 1:cout<<"Enter element:\t";
+       cin>>x;
+       q.enqueue(x);
+       break;
+case 2:x = q.dequeue();
+       if(x == 9999)
+       cout<<"Empty Queue!"<<endl;
+       else
+       cout<<"Dequeued element:\t"<<x<<endl;
+       break;
+case 3: q.show_status();
+       break;
+case 4:cout<<"Queue :\n";
+       q.show_queue();
+       break;
+default : cout<<"Enter valid choice!\n";
+}
+}while((choice >= 1)&&(choice <= 4));
+return 0;
+}
