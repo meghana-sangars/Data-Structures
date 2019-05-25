@@ -1,0 +1,168 @@
+
+#include<iostream>
+using namespace std;
+
+struct node
+{
+int data;
+node *next;
+node *prev;
+}*start;
+
+void insert_at_end(int x)
+{
+node *new_node = new node;
+new_node->data = x;
+new_node->next = NULL;
+new_node->prev = NULL;
+if(start == NULL)
+start = new_node;
+else
+{
+node *temp= start;  
+while(temp->next!=NULL)
+temp=temp->next;
+
+temp->next = new_node;
+}
+}
+
+void insert_at_beginning(int x)
+{
+node *new_node = new node;
+new_node->data = x;
+new_node->next = NULL;
+if(start == NULL)
+start = new_node;
+else
+{
+start->prev = new_node;
+new_node->next = start;
+start = new_node;
+}
+}
+
+void insert_at_pos(int x, int pos)
+{
+node *new_node = new node;
+new_node->data = x;
+new_node->next = NULL;
+if(start == NULL)
+start = new_node;
+else
+{
+    int cnt = 1;
+ node *temp = start;
+while(cnt<(pos-1))
+{temp=temp->next;
+    cnt++;
+}
+
+new_node->next = temp->next;
+temp->next = new_node;
+new_node->prev = temp;
+temp->next->prev = new_node;
+}
+}
+
+void del(int pos)
+{
+
+if(start == NULL)
+cout<<"List is empty!\n";
+else
+{
+    if(pos!=1)
+    {
+int cnt = 1;
+ node *temp = start;
+while(cnt<(pos-1))
+{temp=temp->next;
+    cnt++;
+}
+
+node* del_node = temp->next;
+
+if(del_node->next!=NULL)
+{del_node->next->prev = temp;
+temp->next = del_node->next;
+}
+else
+{
+temp->next = NULL;    
+}
+delete(del_node);
+}
+else
+{
+    node *del_node = start;
+node *temp = start;
+if(temp->next!=NULL)
+temp = temp->next;
+start = temp;
+start->prev = NULL;
+delete(del_node);
+}
+}
+}
+
+
+void disp()
+{
+    if(start == NULL)
+    cout<<"List is empty!\n";
+else
+{
+node *temp= start;  
+while(temp!=NULL)
+{   cout<<temp->data<<" ";
+    temp=temp->next;}   
+}
+cout<<endl;
+}
+
+
+int main()
+{
+int choice;
+int x,pos;
+cout<<"LINEAR LINKED LIST\n";
+cout<<"1.Insert at end\n";
+cout<<"2.Insert at beginning\n";
+cout<<"3.Insert at position\n";
+cout<<"4.Deletion\n";
+cout<<"5.Display\n";
+
+do
+{   cout<<"Enter choice:\t";
+    cin>>choice;
+    switch(choice)
+{
+case 1:cout<<"enter element:\t";
+       cin>>x;
+       insert_at_end(x);
+       break;
+case 2:cout<<"enter element:\t";
+       cin>>x;
+       insert_at_beginning(x);
+       break;
+case 3:cout<<"enter element:\t";
+       cin>>x;
+       cout<<"enter position:\t";
+       cin>>pos;
+       insert_at_pos(x,pos);
+       break;
+case 4:cout<<"enter position:\t";
+       cin>>pos;
+       del(pos);
+       break;
+case 5:
+       disp();
+       break;
+default:cout<<"Enter valid choice\n";
+}
+}while((choice > 0)&&(choice <= 5));
+return 0;
+}
+
+   
