@@ -126,7 +126,7 @@ int main()
 {
 int choice;
 int x,pos;
-cout<<"LINEAR LINKED LIST\n";
+cout<<"DOUBLY LINKED LINEAR LIST\n";
 cout<<"1.Insert at end\n";
 cout<<"2.Insert at beginning\n";
 cout<<"3.Insert at position\n";
