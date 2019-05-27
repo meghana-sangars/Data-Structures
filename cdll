@@ -1,0 +1,171 @@
+#include<iostream>
+using namespace std;
+
+struct node
+{
+int data;
+node *next;
+node *prev;
+}*front,*rear;
+
+void insert_at_end(int x)
+{
+node *new_node = new node;
+new_node->data = x;
+new_node->next = NULL;
+new_node->prev = NULL;
+if((front == NULL)&&(rear == NULL))
+front = rear = new_node;
+else
+{
+new_node->next = front;
+new_node->prev = rear;
+rear->next = new_node;
+rear = rear->next;
+front->prev = rear;
+}
+}
+
+void insert_at_beginning(int x)
+{
+node *new_node = new node;
+new_node->data = x;
+new_node->next = NULL;
+if((front == NULL)&&(rear == NULL))
+front = rear = new_node;
+else
+{
+new_node->next = front;
+new_node->prev = rear;
+rear->next = new_node;
+front->prev = new_node;
+front = new_node;
+}
+}
+
+void insert_at_pos(int x, int pos)
+{
+node *new_node = new node;
+new_node->data = x;
+new_node->next = NULL;
+if((front == NULL)&&(rear == NULL))
+front = rear = new_node;
+else
+{
+    int cnt = 1;
+ node *temp = front;
+while(cnt<(pos-1))
+{temp=temp->next;
+    cnt++;
+}
+
+
+new_node->prev = temp;
+new_node->next = temp->next;
+temp->next = new_node;
+new_node->next->prev = new_node;
+}
+}
+
+void del(int pos)
+{
+if((front == NULL)&&(rear == NULL))
+cout<<"List empty!\n";
+else
+{
+    if((pos!=1)&&(front!=rear))
+    {
+int cnt = 1;
+ node *temp = front;
+while(cnt<(pos-1))
+{temp=temp->next;
+    cnt++;
+}
+
+node* del_node = temp->next;
+if(del_node!=rear)
+{temp->next = del_node->next;
+del_node->next->prev = temp;}
+else
+{
+rear->prev->next = front;
+rear = del_node->prev;
+front->prev = rear;
+}
+delete(del_node);
+}
+else if((pos == 1)&&(front!=rear))
+{
+node *del_node = front;
+front = del_node->next;
+rear->next = front;
+front->prev = rear;
+delete(del_node);
+}
+else
+{
+delete(front);
+front = rear = NULL;
+}
+}
+}
+
+
+void disp()
+{
+    if((front == NULL)&&(rear == NULL))
+    cout<<"List is empty!\n";
+else
+{
+node *temp= front;  
+while(temp!=rear)
+{   cout<<temp->data<<" ";
+    temp=temp->next;}   
+cout<<temp->data<<" ";
+cout<<endl;
+}
+}
+
+
+int main()
+{
+int choice;
+int x,pos;
+cout<<"DOUBLY LINKED LINEAR LIST\n";
+cout<<"1.Insert at end\n";
+cout<<"2.Insert at beginning\n";
+cout<<"3.Insert at position\n";
+cout<<"4.Deletion\n";
+cout<<"5.Display\n";
+
+do
+{   cout<<"Enter choice:\t";
+    cin>>choice;
+    switch(choice)
+{
+case 1:cout<<"enter element:\t";
+       cin>>x;
+       insert_at_end(x);
+       break;
+case 2:cout<<"enter element:\t";
+       cin>>x;
+       insert_at_beginning(x);
+       break;
+case 3:cout<<"enter element:\t";
+       cin>>x;
+       cout<<"enter position:\t";
+       cin>>pos;
+       insert_at_pos(x,pos);
+       break;
+case 4:cout<<"enter position:\t";
+       cin>>pos;
+       del(pos);
+       break;
+case 5:
+       disp();
+       break;
+default:cout<<"Enter valid choice\n";
+}
+}while((choice > 0)&&(choice <= 5));
+return 0;
+}
