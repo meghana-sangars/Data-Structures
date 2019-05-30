@@ -1,0 +1,141 @@
+#include<iostream>
+using namespace std;
+
+struct node
+{
+int data;
+node *left;
+node *right;
+}*root;
+
+void ins(int x)
+{
+node *new_node = new node;
+new_node->data = x;
+new_node->left = NULL;
+new_node->right = NULL;
+if(root == NULL)
+root = new_node;
+else
+{
+node *pwalk = root;
+node* parent;
+while(pwalk!=NULL)
+{
+    parent = pwalk;
+    if(x<pwalk->data)
+    pwalk = pwalk->left;
+    else
+    pwalk = pwalk->right;
+}
+if(x<parent->data)
+parent->left = new_node;
+else
+parent->right = new_node;
+}
+}
+
+bool del(int x, node *root)
+{
+if(root == NULL)
+return false;
+else if(x <root->data)
+return del(x,root->left);
+else if(x > root->data)
+return del(x, root->right);
+else
+{
+    node *dltptr;
+if(root->left == NULL)
+{
+ dltptr = root;
+ root = root->right;
+ delete(dltptr);
+ return true;
+}
+else if(root->right == NULL)
+{
+ dltptr = root;
+ root = root->left;
+ delete(dltptr);
+ return true;
+}
+else
+{
+    dltptr = root->left;
+    while(dltptr!=NULL)
+    dltptr = dltptr->right;
+    root->data = dltptr->data;
+    return del(dltptr->data,root->left);
+}
+}
+}
+
+void pre_order(node *root)
+{
+if(root != NULL)
+{
+cout<<root->data<<" ";
+pre_order(root->left);
+pre_order(root->right);
+}
+}
+
+
+void in_order(node *root)
+{
+if(root != NULL)
+{
+in_order(root->left);
+cout<<root->data<<" ";
+in_order(root->right);
+}
+}
+
+void post_order(node *root)
+{
+if(root != NULL)
+{
+post_order(root->left);
+post_order(root->right);
+cout<<root->data<<" ";
+}
+}
+
+
+int main()
+{
+int x,choice;
+cout<<"----------BINARY SEARCH TREE----------\n";
+do{
+cout<<"1.Insert\n";
+cout<<"2.Delete\n";
+cout<<"3.Pre-order traversal\n";
+cout<<"4.In-order traversal\n";
+cout<<"5.Post-order traversal\n";
+cout<<"enter choice:\t";
+cin>>choice;
+switch(choice)
+{
+case 1: cout<<"Enter element:\t";
+        cin>>x;
+        ins(x);
+        break;
+case 2: cout<<"Enter delete key:\t";
+        cin>>x;
+        del(x,root);
+        break;
+case 3: pre_order(root);
+        cout<<endl;
+        break;
+case 4: in_order(root);
+         cout<<endl;
+         break;
+case 5: post_order(root);
+        cout<<endl;
+        break;
+default : cout<<"Enter valid choice\n";
+}
+}while((choice>0)&&(choice<6));
+return 0;
+}
