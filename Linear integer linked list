@@ -106,6 +106,18 @@ while(temp!=NULL)
 cout<<endl;
 }
 
+int get_count()
+{
+int cnt = 0;
+node *temp = start;
+while(temp->next!=NULL)
+{
+temp = temp->next;
+cnt++;
+}
+return (cnt+1);
+}
+
 int main()
 {
 int choice;
@@ -116,6 +128,7 @@ cout<<"2.Insert at beginning\n";
 cout<<"3.Insert at position\n";
 cout<<"4.Deletion\n";
 cout<<"5.Display\n";
+cout<<"6.Node count\n";
 do
 {   cout<<"Enter choice:\t";
     cin>>choice;
@@ -141,8 +154,11 @@ case 4:cout<<"enter position:\t";
        break;
 case 5:disp();
        break;
+case 6:int c = get_count();
+       cout<<"Number of nodes:\t"<<c<<endl;
+       break;
 default:cout<<"Enter valid choice\n";
 }
-}while((choice > 0)&&(choice <= 5));
+}while((choice > 0)&&(choice <= 6));
 return 0;
 }
