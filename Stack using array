@@ -47,13 +47,10 @@ else
 {
 for(int i=top;i>=0;i--)
     cout<<a[i]<<endl;
-}
-}
-};
+}}};
 
 int main()
 {
-
 int n,choice,x;
 cout<<"Enter maximum size of the stack:\t";
 cin>>n;
@@ -90,5 +87,4 @@ case 4:cout<<"Stack status:\n";
 default : cout<<"Enter valid choice!\n";
 }
 }while((choice >= 1)&&(choice <= 4));
-return 0;
-}
+return 0;}
